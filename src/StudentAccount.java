@@ -11,7 +11,7 @@ public class StudentAccount extends BaseAccount {
     private double studentGrade;
 
 
-    private HashMap<String, Double> studentAssignments;
+    private HashMap<String, Double> studentAssignments = new HashMap<>();
 
 
     public StudentAccount(String userName, String email, String password, double studentGrade) {
@@ -33,8 +33,26 @@ public class StudentAccount extends BaseAccount {
     }
 
     public void setKeyValueGrade(String key, double setGrade) {
-        if (this.studentAssignments.containsKey(key)) {
-            this.studentAssignments.put(key, setGrade);
+        this.studentAssignments.put(key, setGrade);
+    }
+
+    @Override
+    public char formatGrade(StudentAccount studentAccount) {
+        // Needs reworking in the future
+        if (studentAccount.studentGrade < 60) {
+            return 'f';
+        }
+        else if (studentAccount.studentGrade < 70) {
+            return 'd';
+        }
+        else if (studentAccount.studentGrade < 80) {
+            return 'c';
+        }
+        else if (studentAccount.studentGrade < 90) {
+            return 'b';
+        }
+        else {
+            return 'a';
         }
     }
 
@@ -70,7 +88,7 @@ public class StudentAccount extends BaseAccount {
         //Generate folder
         studFolder.mkdirs();
 
-        String currentFileDir = studentFolderDir + this.getStudentName() + ".txt";
+        String currentFileDir = studentFolderDir + this.getUsername() + ".txt";
 
         File studFile = new File(currentFileDir);
 
@@ -83,7 +101,7 @@ public class StudentAccount extends BaseAccount {
             }
         }
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter( currentFileDir))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(currentFileDir))) {
             bufferedWriter.write(this.getEmail());
             bufferedWriter.newLine();
             bufferedWriter.write(this.getPassword());
@@ -93,12 +111,12 @@ public class StudentAccount extends BaseAccount {
 
 
             //Hash map encoding. , = split next item. end of line means entry end.
-            for (Map.Entry<String, Double> entry : this.getStudentAssignments().entrySet()) {
-                bufferedWriter.write(entry.getKey() + "," + entry.getValue());
-                bufferedWriter.newLine();
+            if (this.getStudentAssignments() != null && !this.getStudentAssignments().isEmpty()) {
+                for (Map.Entry<String, Double> entry : this.getStudentAssignments().entrySet()) {
+                    bufferedWriter.write(entry.getKey() + "," + entry.getValue());
+                    bufferedWriter.newLine();
+                }
             }
-            // token for end of hash map.
-            bufferedWriter.write("***");
 
             bufferedWriter.flush();
         }

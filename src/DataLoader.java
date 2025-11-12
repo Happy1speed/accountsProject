@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Map;
 
 public class DataLoader {
 
@@ -23,9 +24,10 @@ public class DataLoader {
 
                 //Iterate through available files:
 
-                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(studFolder + currentFile.getName()))) {
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(studFolder + "\\" + currentFile.getName()))) {
                     //Username is the file name
-                    String grabUserName = currentFile.getName();
+                    String[] removeFileExtension = currentFile.getName().split("\\.");
+                    String grabUserName = removeFileExtension[0];
 
                     //First 3 items are in this order:
                     String grabEmail = bufferedReader.readLine();
@@ -49,7 +51,8 @@ public class DataLoader {
                     GlobalData.studentList.add(studentAccount);
 
                 } catch (IOException e) {
-                    System.out.print("Couldn't open file.");
+                    System.out.println(e.getMessage());
+                    //System.out.print("Couldn't open file.");
                 }
             }
         }
@@ -59,22 +62,78 @@ public class DataLoader {
 
 
         //Todo Must correct this when putting project together, for now it is assumed that teachers is the right folder.
-        String teacherFolderDir = currentDir + "/teachers/";
-
-        File teacherFolder = new File(teacherFolderDir);
-
-        teacherFolder.mkdirs();
-
-
+//        String teacherFolderDir = currentDir + "/teachers/";
+//
+//        File teacherFolder = new File(teacherFolderDir);
+//
+//        teacherFolder.mkdirs();
 
 
 
-        //Todo Must correct this when putting project together, for now it is assumed that assignments is the right folder.
+
+
         String assignmentsFolderDir = currentDir + "/assignments/";
 
         File assignmentsFolder = new File(assignmentsFolderDir);
 
         assignmentsFolder.mkdirs();
+
+        File[] assignmentFiles = assignmentsFolder.listFiles();
+
+
+        if (assignmentFiles != null) {
+            //If files are there to be read:
+
+            for (File currentFile : assignmentFiles) {
+
+                //Iterate through available files:
+
+                System.out.println(assignmentsFolder + "/" + currentFile.getName());
+
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(assignmentsFolder + "\\" + currentFile.getName()))) {
+
+                    //First 3 items are in this order:
+                    String grabAssignmentName = bufferedReader.readLine();
+
+                    double grabMaxGrade = Double.parseDouble(bufferedReader.readLine());
+
+                    String grabDate = bufferedReader.readLine();
+
+                    //Early object instance
+                    Assignment assignment = new Assignment(grabMaxGrade, grabAssignmentName, grabDate);
+
+                    GlobalData.assignmentList.add(assignment);
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
+
+        //test to see if they are loaded correctly:
+
+        for (StudentAccount studentAccount :  GlobalData.studentList) {
+            System.out.println(studentAccount.getUsername());
+            System.out.println(studentAccount.getEmail());
+            System.out.println(studentAccount.getPassword());
+            for (Map.Entry<String, Double> entry : studentAccount.getStudentAssignments().entrySet()) {
+                System.out.print(entry.getKey());
+                System.out.print(" : ");
+                System.out.print(entry.getValue());
+                System.out.println();
+            }
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        for (Assignment assignment :  GlobalData.assignmentList) {
+            System.out.println(assignment.getName());
+            System.out.println(assignment.getDate());
+            System.out.println(assignment.getMaxPoints());
+        }
 
     }
 }
