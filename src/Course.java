@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class Courses {
+public class Course extends Saveable {
     //Note that the class is courses, we can change it back to Course but that basically made my computer explode so it's courses for now, in TeacherAccount it's courses too
     private String courseName;
     private String meetingTimes;
@@ -12,7 +12,7 @@ public class Courses {
 
 
     // Default constructor
-    public Courses() {
+    public Course() {
         courseName = "default";
         meetingTimes = "default";
         roomNumber = "default";
@@ -22,14 +22,14 @@ public class Courses {
 
 
     //Constructor with parameters, I may want to try to get teacher info from the teacher account instead of passing it here
-    public Courses(String _courseName, String _meetingTimes, String _instructorInfo, String _roomNumber, int _courseCode, int _credits) {
+    public Course(String _courseName, String _meetingTimes, String _instructorInfo, String _roomNumber, int _courseCode, int _credits) {
         courseName = _courseName;
         courseCode = _courseCode;
         credits = _credits;
         meetingTimes = _meetingTimes;
         roomNumber = _roomNumber;
         instructorInfo = _instructorInfo;
-        studentRoster = new ArrayList<String>(); //Not sure if this is right, I am a monkey and this is my code
+        studentRoster = new ArrayList<StudentAccount>(); //Not sure if this is right, I am a monkey and this is my code
     }
 
 
@@ -95,10 +95,10 @@ public class Courses {
 
 
     //ArrayList for student roster, probably needs some work as I am not sure how really what an ArrayList is yet
-    private ArrayList<String> studentRoster = new ArrayList<String>();
+    private ArrayList<StudentAccount> studentRoster = new ArrayList<StudentAccount>();
 
 
-    public void addStudentToRoster(String studentName) {
+    public void addStudentToRoster(StudentAccount studentName) {
         studentRoster.add(studentName);
     }
 
@@ -108,7 +108,7 @@ public class Courses {
     }
 
 
-    public ArrayList<String> getStudentRoster() {
+    public ArrayList<StudentAccount> getStudentRoster() {
         return studentRoster;
     }
 
@@ -124,6 +124,10 @@ public class Courses {
     }
 
 
+    @Override
+    public void save() {
+
+    }
 }
 
 

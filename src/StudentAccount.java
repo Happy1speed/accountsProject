@@ -36,27 +36,7 @@ public class StudentAccount extends BaseAccount {
         this.studentAssignments.put(key, setGrade);
     }
 
-    @Override
-    public char formatGrade(StudentAccount studentAccount) {
-        // Needs reworking in the future
-        if (studentAccount.studentGrade < 60) {
-            return 'f';
-        }
-        else if (studentAccount.studentGrade < 70) {
-            return 'd';
-        }
-        else if (studentAccount.studentGrade < 80) {
-            return 'c';
-        }
-        else if (studentAccount.studentGrade < 90) {
-            return 'b';
-        }
-        else {
-            return 'a';
-        }
-    }
 
-    @Override
     public char formatGrade() {
         if (this.studentGrade < 60) {
             return 'f';

@@ -43,9 +43,5 @@ public abstract class BaseAccount extends Saveable {
     }
 
     //todo: Might need reworking in the future
-
-    public abstract char formatGrade(StudentAccount student);
-
-    public abstract char formatGrade();
 }
 
