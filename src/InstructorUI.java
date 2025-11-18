@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InstructorUI {
@@ -6,17 +7,62 @@ public class InstructorUI {
     public TeacherAccount currentlyLoggedIn;
 
     public void addStudent() {
-        Scanner scnr = new Scanner(System.in);
 
-        System.out.print("Enter new student username: ");
-        String username = scnr.nextLine();
+        //Todo What is this
+        // Currently this code is supposed to be a menu that:
+        // Loops with   ,
+        // Presents an interface with all students   ,
+        // Adds selected student to the Course   ,
+        // Repeat until option breaks out   .
 
-        System.out.print("Enter student email: ");
-        String email = scnr.nextLine();
+        boolean correctUserInfo = false;
+        boolean correctEmailInfo = false;
+        boolean correctPasswordInfo = false;
+        String username = "";
+        String email = "";
+        String password = "";
+        while (!correctPasswordInfo || !correctEmailInfo || !correctUserInfo) {
+            Scanner scnr = new Scanner(System.in);
 
-        System.out.print("Enter password: ");
-        String password = scnr.nextLine();
 
+            if (!correctUserInfo) {
+                System.out.print("Enter new student username: ");
+                try {
+                    username = scnr.nextLine();
+
+                    correctUserInfo = true;
+                } catch (InputMismatchException inputMismatchException) {
+                    System.out.println("Invalid Username");
+                }
+            }
+
+
+
+            if (!correctEmailInfo) {
+                System.out.print("Enter student email: ");
+                try {
+                    email = scnr.nextLine();
+
+                    correctEmailInfo = true;
+                } catch (InputMismatchException inputMismatchException) {
+                    System.out.println("Invalid Email");
+                }
+            }
+
+
+
+            if (!correctPasswordInfo) {
+                System.out.print("Enter password: ");
+                try {
+                    password = scnr.nextLine();
+
+                    correctPasswordInfo = true;
+                } catch (InputMismatchException inputMismatchException) {
+                    System.out.println("Invalid Password");
+                }
+            }
+
+        }
         StudentAccount newStudent = new StudentAccount(username, email, password, 0.0);
         GlobalData.studentList.add(newStudent);
         GlobalData.saveableList.add(newStudent);
@@ -50,7 +96,7 @@ public class InstructorUI {
             System.out.println(s + " | Grade: " + s.getStudentGrade());
         }
     }
-1
+
     public void exportGrade() {
         System.out.println("\nExporting all grades...");
         for (StudentAccount s : GlobalData.studentList) {
