@@ -42,6 +42,6 @@ public abstract class BaseAccount extends Saveable {
         this.email = email;
     }
 
-    //todo: Might need reworking in the future
+    //Remove useless comment
 }
 
