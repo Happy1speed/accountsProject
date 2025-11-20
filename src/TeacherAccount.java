@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 //Still need to extend BaseAccount
 public class TeacherAccount extends BaseAccount {
@@ -39,8 +42,54 @@ private ArrayList<Course> ownedCourses;
         }
     }
 
+    //Please check this too
     @Override
     public void save() {
+        //Absolute system file path
+        String currentDir = System.getProperty("user.dir");
 
+
+        //Absolute system file path + teacher folder
+        String teachFolderDir = currentDir + "/teachers/";
+
+
+        File teachFolder = new File(teachFolderDir);
+
+
+        //Generate folder
+        teachFolder.mkdirs();
+
+
+        String currentFileDir = teacherFolderDir + this.getUsername() + ".txt";
+
+
+        File teachFile = new File(currentFileDir);
+
+
+        if (!teachFile.exists()) {
+            try {
+                teachFile.createNewFile();
+            }
+            catch (IOException e) {
+                System.out.println("FAILED TO CREATE FILE");
+            }
+        }
+
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(currentFileDir))) {
+            bufferedWriter.write(this.getEmail());
+            bufferedWriter.newLine();
+            bufferedWriter.write(this.getPassword());
+            bufferedWriter.newLine();
+            bufferedWriter.write(this.getCoursesTaught());
+            bufferedWriter.newLine();
+
+
+            bufferedWriter.flush();
+        }
+        catch (IOException e) {
+            System.out.println("WRITER EXCEPTION");
+        }
     }
+
 }
