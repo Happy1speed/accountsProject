@@ -6,68 +6,41 @@ public class InstructorUI {
 
     public TeacherAccount currentlyLoggedIn;
 
-    public void addStudent() {
+    public InstructorUI(TeacherAccount teacherAccount) {
+        this.currentlyLoggedIn = teacherAccount;
+    }
 
-        //Todo What is this
-        // Currently this code is supposed to be a menu that:
-        // Loops with   ,
-        // Presents an interface with all students   ,
-        // Adds selected student to the Course   ,
-        // Repeat until option breaks out   .
+    public void addStudent(Scanner scnr) {
 
-        boolean correctUserInfo = false;
-        boolean correctEmailInfo = false;
-        boolean correctPasswordInfo = false;
-        String username = "";
-        String email = "";
-        String password = "";
-        while (!correctPasswordInfo || !correctEmailInfo || !correctUserInfo) {
-            Scanner scnr = new Scanner(System.in);
+        boolean breakout = false;
 
+        while (!breakout) {
 
-            if (!correctUserInfo) {
-                System.out.print("Enter new student username: ");
-                try {
-                    username = scnr.nextLine();
+            System.out.println("Choose students to add. ");
+            System.out.println("Input -1 to exit");
 
-                    correctUserInfo = true;
-                } catch (InputMismatchException inputMismatchException) {
-                    System.out.println("Invalid Username");
-                }
+            //Note: This assumes only one course is active (The hardcoded one)
+            for (StudentAccount studentAccount : currentlyLoggedIn.getCoursesTaught().getFirst().getStudentRoster()) {
+                System.out.println("| " + studentAccount.getUsername() + " |");
             }
 
+            String requestedUsername = scnr.nextLine();
 
-
-            if (!correctEmailInfo) {
-                System.out.print("Enter student email: ");
-                try {
-                    email = scnr.nextLine();
-
-                    correctEmailInfo = true;
-                } catch (InputMismatchException inputMismatchException) {
-                    System.out.println("Invalid Email");
-                }
+            if (requestedUsername.equals("-1")) {
+                breakout = true;
+                break;
             }
 
-
-
-            if (!correctPasswordInfo) {
-                System.out.print("Enter password: ");
-                try {
-                    password = scnr.nextLine();
-
-                    correctPasswordInfo = true;
-                } catch (InputMismatchException inputMismatchException) {
-                    System.out.println("Invalid Password");
+            for (StudentAccount studentAccount : currentlyLoggedIn.getCoursesTaught().getFirst().getStudentRoster()) {
+                if (requestedUsername.equals(studentAccount.getUsername())) {
+                    currentlyLoggedIn.getCoursesTaught().getFirst().addStudentToRoster(studentAccount);
+                    System.out.println("Successfully added " + requestedUsername + " to course");
+                }
+                else {
+                    System.out.println("Could not find username " + requestedUsername + " in list");
                 }
             }
-
         }
-        StudentAccount newStudent = new StudentAccount(username, email, password, 0.0);
-        GlobalData.studentList.add(newStudent);
-        GlobalData.saveableList.add(newStudent);
-
-        System.out.println("Student " + username + " successfully added.");
     }
 
     public void createAssignment() {
