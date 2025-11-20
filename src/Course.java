@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 public class Course extends Saveable {
@@ -123,11 +127,57 @@ public class Course extends Saveable {
              "Credits: " + credits);
     }
 
-
+    //Please check this work
     @Override
     public void save() {
+        //Absolute system file path
+        String currentDir = System.getProperty("user.dir");
 
+
+        //Absolute system file path + student folder
+        String courseFolderDir = currentDir + "/course/";
+
+
+        File crseFolder = new File(courseFolderDir);
+
+
+        //Generate folder
+        crseFolder.mkdirs();
+
+
+        String currentFileDir = courseFolderDir + this.getCourseName() + ".txt";
+
+
+        File crseFile = new File(currentFileDir);
+
+
+        if (!crseFile.exists()) {
+            try {
+                crseFile.createNewFile();
+            }
+            catch (IOException e) {
+                System.out.println("FAILED TO CREATE FILE");
+            }
+        }
+
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(currentFileDir))) {
+            bufferedWriter.write(this.displayInfo());
+
+
+            bufferedWriter.newLine();
+
+
+            bufferedWriter.write(this.getStudentRoster());
+
+
+            bufferedWriter.flush();
+        }
+        catch (IOException e) {
+            System.out.println("WRITER EXCEPTION");
+        }
     }
+
 }
 
 
