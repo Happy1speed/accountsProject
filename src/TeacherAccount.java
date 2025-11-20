@@ -60,7 +60,7 @@ private ArrayList<Course> ownedCourses;
         teachFolder.mkdirs();
 
 
-        String currentFileDir = teacherFolderDir + this.getUsername() + ".txt";
+        String currentFileDir = teachFolderDir + this.getUsername() + ".txt";
 
 
         File teachFile = new File(currentFileDir);
@@ -81,9 +81,11 @@ private ArrayList<Course> ownedCourses;
             bufferedWriter.newLine();
             bufferedWriter.write(this.getPassword());
             bufferedWriter.newLine();
-            bufferedWriter.write(this.getCoursesTaught());
-            bufferedWriter.newLine();
 
+            for (Course thisCourse : this.getCoursesTaught()){
+                bufferedWriter.write(thisCourse.getCourseName());
+                bufferedWriter.newLine();
+            }
 
             bufferedWriter.flush();
         }

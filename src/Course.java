@@ -168,7 +168,10 @@ public class Course extends Saveable {
             bufferedWriter.newLine();
 
 
-            bufferedWriter.write(this.getStudentRoster());
+            for (StudentAccount thisRoster : this.getStudentRoster()){
+                bufferedWriter.write(thisRoster.getUsername());
+                bufferedWriter.newLine();
+            }
 
 
             bufferedWriter.flush();
