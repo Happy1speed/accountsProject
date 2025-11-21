@@ -61,12 +61,52 @@ public class DataLoader {
 
 
 
-        //Todo Must correct this when putting project together, for now it is assumed that teachers is the right folder.
-//        String teacherFolderDir = currentDir + "/teachers/";
+        String teacherFolderDir = currentDir + "/teachers/";
+
+        File teachFolder = new File(teacherFolderDir);
+
+        teachFolder.mkdirs();
+
+        File[] teacherFiles = teachFolder.listFiles();
+
+
+        if (teacherFiles != null) {
+            //If files are there to be read:
+
+            for (File currentFile : teacherFiles) {
+
+                //Iterate through available files:
+
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(teachFolder + "\\" + currentFile.getName()))) {
+                    //Username is the file name
+                    String[] removeFileExtension = currentFile.getName().split("\\.");
+                    String grabUserName = removeFileExtension[0];
+
+                    //First 2 items are in this order:
+                    String grabEmail = bufferedReader.readLine();
+                    String grabPassword = bufferedReader.readLine();
+
+                    //Early object instance
+                    TeacherAccount teacherAccount = new TeacherAccount(grabUserName, grabEmail, grabPassword);
+
+                    //should be uncommented later for making dynamic amounts of courses.
+//                    for (String line : bufferedReader.lines().toList()) {
 //
-//        File teacherFolder = new File(teacherFolderDir);
+//                        //Split based on , split indicator.
+//                        String[] parts = line.split(",");
 //
-//        teacherFolder.mkdirs();
+//
+//                        teacherAccount.addCourse();
+//                    }
+
+
+                    GlobalData.teacherList.add(teacherAccount);
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
 
 
 
