@@ -150,30 +150,34 @@ public class DataLoader {
             }
         }
 
+        //Ensure account list has both lists worth of data.
+        GlobalData.accountList.addAll(GlobalData.studentList);
+        GlobalData.accountList.addAll(GlobalData.teacherList);
+
 
         //test to see if they are loaded correctly:
 
-        for (StudentAccount studentAccount :  GlobalData.studentList) {
-            System.out.println(studentAccount.getUsername());
-            System.out.println(studentAccount.getEmail());
-            System.out.println(studentAccount.getPassword());
-            for (Map.Entry<String, Double> entry : studentAccount.getStudentAssignments().entrySet()) {
-                System.out.print(entry.getKey());
-                System.out.print(" : ");
-                System.out.print(entry.getValue());
-                System.out.println();
-            }
-        }
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
-        for (Assignment assignment :  GlobalData.assignmentList) {
-            System.out.println(assignment.getName());
-            System.out.println(assignment.getDate());
-            System.out.println(assignment.getMaxPoints());
-        }
+//        for (StudentAccount studentAccount :  GlobalData.studentList) {
+//            System.out.println(studentAccount.getUsername());
+//            System.out.println(studentAccount.getEmail());
+//            System.out.println(studentAccount.getPassword());
+//            for (Map.Entry<String, Double> entry : studentAccount.getStudentAssignments().entrySet()) {
+//                System.out.print(entry.getKey());
+//                System.out.print(" : ");
+//                System.out.print(entry.getValue());
+//                System.out.println();
+//            }
+//        }
+//
+//        System.out.println();
+//        System.out.println();
+//        System.out.println();
+//
+//        for (Assignment assignment :  GlobalData.assignmentList) {
+//            System.out.println(assignment.getName());
+//            System.out.println(assignment.getDate());
+//            System.out.println(assignment.getMaxPoints());
+//        }
 
     }
 }
