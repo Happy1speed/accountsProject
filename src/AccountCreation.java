@@ -5,11 +5,13 @@ public class AccountCreation {
             TeacherAccount teacher = new TeacherAccount(userName, email, password);
             teacher.save();
             GlobalData.teacherList.add(teacher);
+            GlobalData.accountList.add(teacher);
         }
         else {
-            StudentAccount student = new StudentAccount(userName, email, password, 0);
+            StudentAccount student = new StudentAccount(userName, email, password, 100);
             student.save();
             GlobalData.studentList.add(student);
+            GlobalData.accountList.add(student);
         }
         
     }
