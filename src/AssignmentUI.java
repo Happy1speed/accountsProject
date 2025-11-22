@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class AssignmentUI {
 
-    public void writeAssignment() {
-        Scanner scnr = new Scanner(System.in);
+    public static void writeAssignment(Scanner scnr) {
 
         System.out.print("Enter assignment name: ");
         String name = scnr.nextLine();
