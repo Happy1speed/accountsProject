@@ -17,6 +17,9 @@ private ArrayList<Course> ownedCourses;
         super(username, email, password);
 
         ownedCourses = new ArrayList<>();
+
+        //todo Remove when the time comes to add multi-course support
+        addCourse(Main.course);
     }
 
 

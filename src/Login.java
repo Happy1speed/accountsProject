@@ -12,12 +12,11 @@ public class Login {
 
 
             if (!correctUserInfo) {
-                System.out.println("Enter -1 to go back.");
-                System.out.print("Enter username: ");
+                System.out.print("Enter username or exit: ");
                 try {
                     username = scnr.nextLine();
 
-                    if (username.equals("-1")) {
+                    if (username.equalsIgnoreCase("exit")) {
                         break;
                     }
 
@@ -33,12 +32,11 @@ public class Login {
                     if (couldFindUserName) {
 
                         while (!correctPasswordInfo) {
-                            System.out.println("Enter -1 to go back.");
-                            System.out.print("Enter password: ");
+                            System.out.print("Enter password or exit: ");
                             try {
                                 String findPassword = scnr.nextLine();
 
-                                if (findPassword.equals("-1")) {
+                                if (findPassword.equalsIgnoreCase("exit")) {
                                     break;
                                 }
 
@@ -55,6 +53,22 @@ public class Login {
 
                                 if (couldFindPassword) {
                                     correctUserInfo = true;
+
+                                    System.out.println("Successfully logged in!");
+
+                                    for (BaseAccount account : GlobalData.accountList) {
+                                        if (account.getUsername().equals(username)) {
+                                            //Instance of checks the class inheritance to test if the BaseAccount is a student account.
+                                            //Student account is what is verified as a student account.
+                                            if (account instanceof StudentAccount studentAccount) {
+                                                LoggedInAsStudentLoop.loop(scnr, studentAccount);
+                                            }
+                                            else if (account instanceof TeacherAccount teacherAccount) {
+                                                LoggedInAsTeacherLoop.loop(scnr, teacherAccount);
+                                            }
+                                            break;
+                                        }
+                                    }
 
                                     //This is the exit point where now the username and password have been confirmed to be in the system.
 
