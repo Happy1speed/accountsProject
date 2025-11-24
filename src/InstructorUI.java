@@ -43,13 +43,12 @@ public class InstructorUI {
         }
     }
 
-    public void createAssignment() {
+    public void createAssignment(Scanner scnr) {
         AssignmentUI assignmentUI = new AssignmentUI();
-        assignmentUI.writeAssignment();
+        assignmentUI.writeAssignment(scnr);
     }
 
-    public void recordGrades() {
-        Scanner scnr = new Scanner(System.in);
+    public void recordGrades(Scanner scnr) {
 
         System.out.print("Enter assignment name to record grades for: ");
         String assignmentName = scnr.nextLine();

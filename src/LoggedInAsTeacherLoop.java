@@ -4,6 +4,8 @@ public class LoggedInAsTeacherLoop {
     public static void loop(Scanner scnr, TeacherAccount user) {
         boolean exit = false;
 
+        InstructorUI UI = new InstructorUI(user);
+
         while (!exit) {
 
             System.out.println("Teacher Interface Home");
@@ -12,13 +14,62 @@ public class LoggedInAsTeacherLoop {
             String getChoice = scnr.nextLine();
 
             if (getChoice.equalsIgnoreCase("view_students")) {
+
+
                 for (StudentAccount studentAccount : user.getCoursesTaught().getFirst().getStudentRoster()) {
                     System.out.println(studentAccount.getUsername() + " : " + studentAccount.getStudentGrade());
                 }
             }
             else if (getChoice.equalsIgnoreCase("edit_grade")) {
-                //todo Add this
-                System.out.println("DEBUG RESPONSE: ADD THIS");
+                boolean gradeUnedited = true;
+
+                while (gradeUnedited) {
+                    System.out.println();
+                    System.out.println("Enter the name of the student you will be editing the grade of, or exit.");
+
+
+                    String getStudent = scnr.nextLine();
+
+                    if (getStudent.equalsIgnoreCase("exit")) {
+                        gradeUnedited = false;
+                        break;
+                    }
+
+                    StudentAccount subjectStudent = new StudentAccount("dummy", "dummy", "dummy", 0);
+
+                    boolean foundStudentInRoster = false;
+
+                    for (StudentAccount studentAccount : user.getCoursesTaught().getFirst().getStudentRoster()) {
+
+                        if (studentAccount.getUsername().equalsIgnoreCase(getStudent)) {
+                            foundStudentInRoster = true;
+                            subjectStudent = studentAccount;
+                            break;
+                        }
+                    }
+
+                    if (foundStudentInRoster) {
+                        System.out.println("Student Found!");
+                        System.out.println("Input the assignment name that you want to grade them on: ");
+
+                        String assignmentName = scnr.nextLine();
+
+                        if (subjectStudent.getStudentAssignments().get(assignmentName) != null) {
+                            System.out.println("Input new grade: ");
+
+                            double newGrade = scnr.nextDouble();
+
+                            subjectStudent.setKeyValueGrade(assignmentName, newGrade);
+
+                            System.out.println("Grade Set");
+                        }
+                    }
+                    else {
+                        System.out.println("Could not find student \"" + getStudent + "\" in course list.");
+                        System.out.println("If you are unsure of available names, return to Teacher Interface Home and try view_students.");
+                    }
+                }
+
             }
             else if (getChoice.equalsIgnoreCase("add_student")) {
 
