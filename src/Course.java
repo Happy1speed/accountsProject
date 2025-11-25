@@ -127,6 +127,15 @@ public class Course extends Saveable {
              "Credits: " + credits);
     }
 
+    public String readInfo() {
+        return (
+                meetingTimes + "\n" +
+                instructorInfo + "\n" +
+                roomNumber + "\n" +
+                courseCode + "\n" +
+                credits);
+    }
+
     //Please check this work
     @Override
     public void save() {
@@ -162,7 +171,7 @@ public class Course extends Saveable {
 
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(currentFileDir))) {
-            bufferedWriter.write(this.displayInfo());
+            bufferedWriter.write(this.readInfo());
 
 
             bufferedWriter.newLine();

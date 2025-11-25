@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Map;
 
 public class DataLoader {
 
@@ -149,6 +148,65 @@ public class DataLoader {
                 }
             }
         }
+
+
+
+
+        String currentCourseDir = System.getProperty("user.dir");
+
+        String courseFolderDir = currentCourseDir + "/courses/";
+
+        File courFolder = new File(courseFolderDir);
+
+        courFolder.mkdirs();
+
+        File[] courseFiles = courFolder.listFiles();
+
+
+        if (courseFiles != null) {
+            //If files are there to be read:
+
+            for (File currentFile : courseFiles) {
+
+                //Iterate through available files:
+
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(courFolder + "\\" + currentFile.getName()))) {
+                    //Username is the file name
+                    String[] removeFileExtension = currentFile.getName().split("\\.");
+                    String grabCourseName = removeFileExtension[0];
+
+                    //First 3 items are in this order:
+                    String grabEmail = bufferedReader.readLine();
+                    String grabInstructorInfo = bufferedReader.readLine();
+                    String grabRoomNumber = bufferedReader.readLine();
+                    int grabCourseCode = Integer.getInteger(bufferedReader.readLine());
+                    int grabCredits = Integer.getInteger(bufferedReader.readLine());
+
+                    //Early object instance
+                    Course course = new Course(grabCourseName, grabEmail, grabInstructorInfo, grabRoomNumber, grabCourseCode, grabCredits);
+
+                    //Read and construct assignments HashMap from file.
+                    for (String line : bufferedReader.lines().toList()) {
+                        for (StudentAccount studentAccount : GlobalData.studentList) {
+                            if (studentAccount.getUsername().equals(line)) {
+                                course.addStudentToRoster(studentAccount);
+                            }
+                        }
+
+                    }
+
+                    GlobalData.courseList.add(course);
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    //System.out.print("Couldn't open file.");
+                }
+            }
+        }
+
+
+
+
 
         //Ensure account list has both lists worth of data.
         GlobalData.accountList.addAll(GlobalData.studentList);
