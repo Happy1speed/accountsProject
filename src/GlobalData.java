@@ -4,6 +4,7 @@ public class GlobalData {
 
 
     public static ArrayList<TeacherAccount> teacherList = new ArrayList<TeacherAccount>();
+    public static ArrayList<Course> courseList = new ArrayList<Course>();
     public static ArrayList<StudentAccount> studentList = new ArrayList<StudentAccount>();
     public static ArrayList<BaseAccount> accountList = new ArrayList<BaseAccount>();
     public static ArrayList<Assignment> assignmentList = new ArrayList<Assignment>();
