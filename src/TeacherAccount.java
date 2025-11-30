@@ -19,7 +19,7 @@ private ArrayList<Course> ownedCourses;
         ownedCourses = new ArrayList<>();
 
         //todo Remove when the time comes to add multi-course support
-        addCourse(Main.course);
+//        addCourse(Main.course);
     }
 
 

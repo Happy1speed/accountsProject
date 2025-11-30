@@ -6,7 +6,6 @@ import java.io.IOException;
 
 
 public class Course extends Saveable {
-    //Note that the class is courses, we can change it back to Course but that basically made my computer explode so it's courses for now, in TeacherAccount it's courses too
     private String courseName;
     private String meetingTimes;
     private String roomNumber;
@@ -144,7 +143,7 @@ public class Course extends Saveable {
 
 
         //Absolute system file path + student folder
-        String courseFolderDir = currentDir + "/course/";
+        String courseFolderDir = currentDir + "/courses/";
 
 
         File crseFolder = new File(courseFolderDir);

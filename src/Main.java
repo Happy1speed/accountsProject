@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static Course course = new Course();
+//public static Course course = new Course();
 
     public static void main(String[] args) {
 
