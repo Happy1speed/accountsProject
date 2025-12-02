@@ -43,7 +43,7 @@ public class LoggedInAsStudentLoop {
 
                         for (Assignment assignment : GlobalData.assignmentList) {
                             if (assignment.getCourse().equals(loggedCourse.getCourseName())) {
-                                System.out.print(assignment.getName() + ": " + user.getStudentAssignments().get(assignment.getName()));
+                                System.out.println(assignment.getName() + ": " + user.getStudentAssignments().get(assignment.getName()));
                             }
                         }
                     }

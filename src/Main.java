@@ -12,17 +12,16 @@ public class Main {
         //It all starts with the load
         DataLoader.load();
 
-        System.out.println("Teachers:");
-        for (TeacherAccount teacherAccount : GlobalData.teacherList) {
-            System.out.println(teacherAccount.getUsername());
-        }
-        System.out.println("Students:");
+//        System.out.println("Teachers:");
+//        for (TeacherAccount teacherAccount : GlobalData.teacherList) {
+//            System.out.println(teacherAccount.getUsername());
+//        }
+//        System.out.println("Students:");
+//
+//        for (StudentAccount sAccount : GlobalData.studentList) {
+//            System.out.println(sAccount.getUsername());
+//        }
 
-        for (StudentAccount sAccount : GlobalData.studentList) {
-            System.out.println(sAccount.getUsername());
-        }
-
-        //Todo Make Course Creation interface as well as adapt rest of code to use multiple courses (?)
 
         boolean exit = false;
 
