@@ -1,5 +1,7 @@
 import java.util.Scanner;
+//This is unused?
 
+//What
 public class StudentUI {
 
     public StudentAccount currentlyLoggedIn;
