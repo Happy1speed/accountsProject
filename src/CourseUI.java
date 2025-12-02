@@ -8,15 +8,20 @@ public class CourseUI {
         int n = 0;
         while (needInput) {
             try {
-                n = scnr.nextInt();
-                needInput = false;
-            } catch (InputMismatchException e) {
-                System.out.println("Not a valid number, please try again...");
-                scnr.next();
-            }
-        }
-        return n;
-    }
+                   n = scnr.nextInt();
+           if(n < 0){
+               System.out.println("Not a valid number, please try again...");
+           } else {
+               needInput = false;
+           }
+       } catch (InputMismatchException e) {
+           System.out.println("Not a valid number, please try again...");
+           scnr.next();
+       }
+   }
+   return n;
+}
+
 
     public static void createCourse(Scanner scnr, TeacherAccount teacherAccount) {
         boolean finalized = false;
