@@ -60,52 +60,7 @@ public class DataLoader {
 
 
 
-        String teacherFolderDir = currentDir + "/teachers/";
 
-        File teachFolder = new File(teacherFolderDir);
-
-        teachFolder.mkdirs();
-
-        File[] teacherFiles = teachFolder.listFiles();
-
-
-        if (teacherFiles != null) {
-            //If files are there to be read:
-
-            for (File currentFile : teacherFiles) {
-
-                //Iterate through available files:
-
-                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(teachFolder + "\\" + currentFile.getName()))) {
-                    //Username is the file name
-                    String[] removeFileExtension = currentFile.getName().split("\\.");
-                    String grabUserName = removeFileExtension[0];
-
-                    //First 2 items are in this order:
-                    String grabEmail = bufferedReader.readLine();
-                    String grabPassword = bufferedReader.readLine();
-
-                    //Early object instance
-                    TeacherAccount teacherAccount = new TeacherAccount(grabUserName, grabEmail, grabPassword);
-
-                    //should be uncommented later for making dynamic amounts of courses.
-//                    for (String line : bufferedReader.lines().toList()) {
-//
-//                        //Split based on , split indicator.
-//                        String[] parts = line.split(",");
-//
-//
-//                        teacherAccount.addCourse();
-//                    }
-
-
-                    GlobalData.teacherList.add(teacherAccount);
-
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
-        }
 
 
 
@@ -142,6 +97,8 @@ public class DataLoader {
 
                     //Early object instance
                     Assignment assignment = new Assignment(grabMaxGrade, grabAssignmentName, grabDate, grabCourse);
+
+
 
                     GlobalData.assignmentList.add(assignment);
 
@@ -202,6 +159,58 @@ public class DataLoader {
                 } catch (IOException e) {
                     System.out.println(e.getMessage());
                     //System.out.print("Couldn't open file.");
+                }
+            }
+        }
+
+
+        String teacherFolderDir = currentDir + "/teachers/";
+
+        File teachFolder = new File(teacherFolderDir);
+
+        teachFolder.mkdirs();
+
+        File[] teacherFiles = teachFolder.listFiles();
+
+
+        if (teacherFiles != null) {
+            //If files are there to be read:
+
+            for (File currentFile : teacherFiles) {
+
+                //Iterate through available files:
+
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(teachFolder + "\\" + currentFile.getName()))) {
+                    //Username is the file name
+                    String[] removeFileExtension = currentFile.getName().split("\\.");
+                    String grabUserName = removeFileExtension[0];
+
+                    //First 2 items are in this order:
+                    String grabEmail = bufferedReader.readLine();
+                    String grabPassword = bufferedReader.readLine();
+
+                    //Early object instance
+                    TeacherAccount teacherAccount = new TeacherAccount(grabUserName, grabEmail, grabPassword);
+
+                    //should be uncommented later for making dynamic amounts of courses.
+                    for (String line : bufferedReader.lines().toList()) {
+
+                        //Split based on , split indicator.
+                        String[] parts = line.split(",");
+
+
+                        for (Course course : GlobalData.courseList) {
+                            if (course.getCourseName().equals(parts[0])) {
+                                teacherAccount.addCourse(course);
+                            }
+                        }
+                    }
+
+
+                    GlobalData.teacherList.add(teacherAccount);
+
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
                 }
             }
         }

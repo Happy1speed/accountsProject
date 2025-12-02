@@ -43,7 +43,14 @@ public class LoggedInAsStudentLoop {
 
                         for (Assignment assignment : GlobalData.assignmentList) {
                             if (assignment.getCourse().equals(loggedCourse.getCourseName())) {
-                                System.out.println(assignment.getName() + ": " + user.getStudentAssignments().get(assignment.getName()));
+                                System.out.print(assignment.getName() + ": ");
+                                if (user.getStudentAssignments().get(assignment.getName()) != null) {
+                                    System.out.print(user.getStudentAssignments().get(assignment.getName()));
+                                }
+                                else {
+                                    System.out.print("Not Graded");
+                                }
+                                System.out.println();
                             }
                         }
                     }
