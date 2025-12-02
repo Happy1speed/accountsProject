@@ -43,9 +43,9 @@ public class InstructorUI {
         }
     }
 
-    public void createAssignment(Scanner scnr) {
+    public void createAssignment(Scanner scnr, String course) {
         AssignmentUI assignmentUI = new AssignmentUI();
-        assignmentUI.writeAssignment(scnr);
+        assignmentUI.writeAssignment(scnr, course);
     }
 
     public void recordGrades(Scanner scnr) {

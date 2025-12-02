@@ -138,8 +138,10 @@ public class DataLoader {
 
                     String grabDate = bufferedReader.readLine();
 
+                    String grabCourse = bufferedReader.readLine();
+
                     //Early object instance
-                    Assignment assignment = new Assignment(grabMaxGrade, grabAssignmentName, grabDate);
+                    Assignment assignment = new Assignment(grabMaxGrade, grabAssignmentName, grabDate, grabCourse);
 
                     GlobalData.assignmentList.add(assignment);
 
@@ -179,8 +181,8 @@ public class DataLoader {
                     String grabEmail = bufferedReader.readLine();
                     String grabInstructorInfo = bufferedReader.readLine();
                     String grabRoomNumber = bufferedReader.readLine();
-                    int grabCourseCode = Integer.getInteger(bufferedReader.readLine());
-                    int grabCredits = Integer.getInteger(bufferedReader.readLine());
+                    int grabCourseCode = Integer.parseInt(bufferedReader.readLine());
+                    int grabCredits = Integer.parseInt(bufferedReader.readLine());
 
                     //Early object instance
                     Course course = new Course(grabCourseName, grabEmail, grabInstructorInfo, grabRoomNumber, grabCourseCode, grabCredits);
@@ -211,6 +213,8 @@ public class DataLoader {
         //Ensure account list has both lists worth of data.
         GlobalData.accountList.addAll(GlobalData.studentList);
         GlobalData.accountList.addAll(GlobalData.teacherList);
+
+
 
 
         //test to see if they are loaded correctly:

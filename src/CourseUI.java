@@ -103,7 +103,9 @@ public class CourseUI {
             }
         }
         teacherAccount.addCourse(myCourse);
+        teacherAccount.save();
         GlobalData.saveableList.add(myCourse);
+        GlobalData.courseList.add(myCourse);
         myCourse.save();
     }
 }

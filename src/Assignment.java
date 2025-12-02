@@ -10,25 +10,30 @@ public class Assignment extends Saveable {
     private double maxPoints;
     private String name;
     private String date;
+    private String course;
 
     // Constructor
     public Assignment(double maxPoints,
                       String name,
-                      String date) {
+                      String date, String course) {
         this.maxPoints = maxPoints;
         this.name = name;
         this.date = date;
+        this.course = course;
     }
 
     // Getters
     public double getMaxPoints() {
-        return maxPoints;
+        return this.maxPoints;
     }
     public String getName() {
-        return name;
+        return this.name;
     }
     public String getDate() {
-        return date;
+        return this.date;
+    }
+    public String getCourse() {
+        return this.course;
     }
 
     // Setters
@@ -40,6 +45,10 @@ public class Assignment extends Saveable {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     // @override save
