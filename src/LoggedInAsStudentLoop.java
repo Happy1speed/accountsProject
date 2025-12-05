@@ -34,7 +34,7 @@ public class LoggedInAsStudentLoop {
                 while (!exit) {
 
                     System.out.println("Student Interface Home");
-                    System.out.println("Options: grade | exit");
+                    System.out.println("Options: grade | export_grade | exit");
 
                     String getChoice = scnr.nextLine();
 
@@ -53,6 +53,9 @@ public class LoggedInAsStudentLoop {
                                 System.out.println();
                             }
                         }
+                    }
+                    else if (getChoice.equalsIgnoreCase("export_grade")) {
+                        ExportGrade.export(user);
                     }
 
                     else if (getChoice.equalsIgnoreCase("exit")) {

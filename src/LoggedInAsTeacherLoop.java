@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class LoggedInAsTeacherLoop {
@@ -35,7 +36,7 @@ public class LoggedInAsTeacherLoop {
                         while (!teacherInterfaceExit) {
 
                             System.out.println("Teacher Interface Home");
-                            System.out.println("Options: view_students | create_assignment  | edit_grade | add_student | remove_student | exit");
+                            System.out.println("Options: view_students | create_assignment | export_grade  | edit_grade | add_student | remove_student | exit");
 
                             String getChoice = scnr.nextLine();
 
@@ -82,6 +83,10 @@ public class LoggedInAsTeacherLoop {
 
                                             String assignmentName = scnr.nextLine();
 
+                                            for (Map.Entry<String, Double> entry : subjectStudent.getStudentAssignments().entrySet()) {
+                                                System.out.println(entry.getKey());
+                                            }
+
                                             if (subjectStudent.getStudentAssignments().get(assignmentName) != null) {
                                                 System.out.println("Input new grade: ");
 
@@ -90,6 +95,9 @@ public class LoggedInAsTeacherLoop {
                                                 subjectStudent.setKeyValueGrade(assignmentName, newGrade);
 
                                                 System.out.println("Grade Set");
+                                            }
+                                            else {
+                                                System.out.println("Couldn't find that assignment");
                                             }
                                         } else {
                                             System.out.println("Could not find student \"" + getStudent + "\" in course list.");
@@ -113,6 +121,7 @@ public class LoggedInAsTeacherLoop {
                                     for (StudentAccount stud : GlobalData.studentList) {
                                         if (studentNameInput.equalsIgnoreCase(stud.getUsername())) {
                                             course.addStudentToRoster(stud);
+                                            course.save();
                                             successfullyAddedStudent = true;
                                         }
                                     }
@@ -138,6 +147,7 @@ public class LoggedInAsTeacherLoop {
                                     for (StudentAccount stud : user.getCoursesTaught().getFirst().getStudentRoster()) {
                                         if (studentNameInput.equalsIgnoreCase(stud.getUsername())) {
                                             user.getCoursesTaught().getFirst().removeStudentFromRoster(stud.getUsername());
+                                            user.save();
                                             successfullyRemovedStudent = true;
                                         }
                                     }
@@ -152,10 +162,38 @@ public class LoggedInAsTeacherLoop {
                             } else if (getChoice.equalsIgnoreCase("create_assignment")) {
                                 AssignmentUI.writeAssignment(scnr, course.getCourseName());
 
-                            } else if (getChoice.equalsIgnoreCase("exit")) {
+                            }
+                            else if (getChoice.equalsIgnoreCase("export_grade")) {
+                                if (!user.getCoursesTaught().isEmpty()) {
+
+                                    System.out.println("Enter Student Name: ");
+
+                                    String studentNameInput = scnr.nextLine();
+
+                                    boolean successfullyRemovedStudent = false;
+
+                                    for (StudentAccount stud : user.getCoursesTaught().getFirst().getStudentRoster()) {
+                                        if (studentNameInput.equalsIgnoreCase(stud.getUsername())) {
+                                            ExportGrade.export(stud);
+                                            successfullyRemovedStudent = true;
+                                            break;
+                                        }
+                                    }
+                                    if (successfullyRemovedStudent) {
+                                        System.out.println("Exported grade");
+                                    } else {
+                                        System.out.println("Could not find student in course");
+                                    }
+                                } else {
+                                    System.out.println("You don't have any courses!");
+                                }
+                            }
+                            else if (getChoice.equalsIgnoreCase("exit")) {
                                 exit = true;
                                 break;
-                            } else {
+
+                            }
+                            else {
                                 System.out.println("Invalid option; please make sure you spelled the command correctly!");
                             }
                         }

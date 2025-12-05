@@ -68,12 +68,4 @@ public class InstructorUI {
             System.out.println(s + " | Grade: " + s.getStudentGrade());
         }
     }
-
-    public void exportGrade() {
-        System.out.println("\nExporting all grades...");
-        for (StudentAccount s : GlobalData.studentList) {
-            GlobalData.saveableList.add(s);
-        }
-        System.out.println("Grades successfully exported!");
-    }
 }

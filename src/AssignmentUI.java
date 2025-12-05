@@ -16,6 +16,8 @@ public class AssignmentUI {
 
         Assignment newAssignment = new Assignment(maxPoints, name, date, course);
         newAssignment.save();
+
+
         GlobalData.assignmentList.add(newAssignment);
         GlobalData.saveableList.add(newAssignment);
 
